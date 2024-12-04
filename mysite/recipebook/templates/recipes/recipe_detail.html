@@ -8,7 +8,7 @@
     <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
     <p><strong>Category:</strong> {{ recipe.category }}</p>
     {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width: 100%; max-width: 500px;">
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid my-3">
     {% endif %}
     <p><strong>Average Rating:</strong> {{ recipe.average_rating|floatformat:1 }}/5</p>
 
@@ -18,13 +18,15 @@
     {% else %}
         <form method="POST">
             {% csrf_token %}
-            <select name="rating" id="rating" required>
+            <div class="mb-3">
+                <select name="rating" id="rating" required>
                 <option value="1">1 - Poor</option>
                 <option value="2">2 - Fair</option>
                 <option value="3">3 - Good</option>
                 <option value="4">4 - Very Good</option>
                 <option value="5">5 - Excellent</option>
-            </select>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Submit Rating</button>
         </form>
     {% endif %}
