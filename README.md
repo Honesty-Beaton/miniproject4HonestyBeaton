@@ -25,7 +25,7 @@ Install the required Python packages using pip
 4) Apply database changes using ```python manage.py migrate``` 
 5) Enable access to the Django admin panel by creating a superuser account: ```python manage.py createsuperuser```
 6) Run the development server using ```python manage.py runserver```
-7) Head to the index page using the localhoast/recipebook/ or the admin page using /admin/
+7) Head to the index page using the localhost/recipebook/ or the admin page using /admin/
 
 ### Dependencies
 ```
