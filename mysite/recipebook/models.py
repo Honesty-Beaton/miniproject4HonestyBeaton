@@ -6,13 +6,13 @@ class Recipe(models.Model):
     description = models.TextField()
     ingredients = models.TextField()
     instructions = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     category = models.CharField(max_length=100, choices=[
         ('Appetizer', 'Appetizer'),
         ('Main Course', 'Main Course'),
         ('Dessert', 'Dessert'),
     ])
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def average_rating(self):

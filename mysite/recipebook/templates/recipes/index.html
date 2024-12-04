@@ -1,0 +1,24 @@
+<!-- index.html -->
+{% extends "generic_base.html" %}
+
+{% block content %}
+    <h2>All Recipes</h2>
+    <div class="row">
+        {% for recipe in recipes %}
+            <div class="col-md-4">
+                <div class="card">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+                    {% else%}
+                        <p>No Image available.</p>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                        <p class="card-text">{{ recipe.description }}</p>
+                        <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

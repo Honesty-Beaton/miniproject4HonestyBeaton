@@ -1,0 +1,54 @@
+<!-- user_profile.html -->
+{% extends "generic_base.html" %}
+{% block content %}
+    <h2>Create a New Recipe</h2>
+    <form method="post" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" required><br><br>
+        </div>
+
+        <div class="mb-3">
+
+        </div>
+        <label for="ingredients">Ingredients:</label>
+        <textarea name="ingredients" id="ingredients" required></textarea><br><br>
+
+        <div class="mb-3">
+
+        </div>
+        <label for="instructions">Instructions:</label>
+        <textarea name="instructions" id="instructions" required></textarea><br><br>
+
+        <div class="mb-3">
+
+        </div>
+        <label for="category">Category:</label>
+        <select name="category" id="category" required>
+            <option value="Appetizer">Appetizer</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Dessert">Dessert</option>
+        </select>
+
+        <div class="mb-3">
+
+        </div>
+        <label for="image">Upload Image:</label>
+        <input type="file" name="image" id="image">
+
+        <button type="submit"  class="btn btn-primary">Create Recipe</button>
+    </form>
+
+    <h2>Your Liked Recipes</h2>
+    <ul class="list-group mb-4">
+        {% for liked_recipe in liked_recipes %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'recipe_detail' liked_recipe.recipe.id %}">{{ liked_recipe.recipe.title }}</a>
+            <span class="badge bg-info text-dark">{{ liked_recipe.recipe.category }}</span>
+        </li>
+        {% empty %}
+            <p>No liked recipes yet!</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

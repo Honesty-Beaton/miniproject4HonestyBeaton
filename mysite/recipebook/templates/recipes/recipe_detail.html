@@ -1,0 +1,48 @@
+<!-- recipe_detail.html -->
+{% extends "generic_base.html" %}
+
+{% block content %}
+    <h2>{{ recipe.title }}</h2>
+    <p><strong>Description:</strong> {{ recipe.description }}</p>
+    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+    <p><strong>Category:</strong> {{ recipe.category }}</p>
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width: 100%; max-width: 500px;">
+    {% endif %}
+    <p><strong>Average Rating:</strong> {{ recipe.average_rating|floatformat:1 }}/5</p>
+
+    <h3>Rate this recipe:</h3>
+    {% if user_has_rated %}
+        <p>You have already rated this recipe.</p>
+    {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <select name="rating" id="rating" required>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Submit Rating</button>
+        </form>
+    {% endif %}
+
+    <h4>Your rating:
+        {% if user_has_rated %}
+            You rated this: {{ user_rating }}
+        {% else %}
+            You haven't rated this recipe yet.
+        {% endif %}
+    </h4>
+
+    <a href="{% url 'like_recipe' recipe.id %}">
+        {% if request.user in recipe.likedrecipe_set.all %}
+            Remove Like
+        {% else %}
+            Like this Recipe!
+        {% endif %}
+    </a>
+
+{% endblock %}
